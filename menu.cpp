@@ -23,3 +23,9 @@ void InternalMenu(){
     std::cout<<"\n\n";
     std::cout<<"Please enter your choice:\n";
 }
+void SigninMenu_USERNAME(){
+    std::cout<<"Enter your username:\n"
+}
+void SigninMenu_PASSWORD(){
+    std::cout<<"Enter your password:\n"
+}
