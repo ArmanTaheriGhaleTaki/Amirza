@@ -29,3 +29,19 @@ void SigninMenu_USERNAME(){
 void SigninMenu_PASSWORD(){
     std::cout<<"Enter your password:\n";
 }
+void MissonComplete(int missionNum){
+    std::cout<<"congratulations you have finished mission "<<missionNum<<std::endl;
+
+}
+void SeasonComplete(int seasonNum){
+    std::cout<<"congratulations you have finished season "<<seasonNum<<std::endl;
+
+}
+void Achive_wheeloffortune(){
+    std::cout<<"you achive a chance for wheel of fortune";
+
+}
+void NotAchive_wheeloffortune(){
+    std::cout<<"you don't achive any chance for wheel of fortune";
+}
+
