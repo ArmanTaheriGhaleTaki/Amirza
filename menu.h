@@ -1,2 +1,4 @@
 #pragma once
-void mainMenu();
+void MainMenu();
+void InternalMenu();
+

@@ -4,5 +4,7 @@
 
 
 int main(){
-    mainMenu();
+    short int  choose=0;
+    MainMenu();
+    InternalMenu();
 }
