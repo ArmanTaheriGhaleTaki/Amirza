@@ -1,6 +1,8 @@
 #include<iostream>
 #include<conio.h>
-#include "menu";
+#include "menu.h"
+
+
 int main(){
-    
+    mainMenu();
 }
