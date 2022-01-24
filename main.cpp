@@ -1,8 +1,19 @@
 #include<iostream>
 #include<conio.h>
 #include <fstream>
+#include <string>
+#include <cstring>
 
-//FUNTIONprototype menue
+//global var 
+std::string name [30];
+int password [30];
+int mission [30];
+int coin [30];
+int extra[30];
+int chance[30];
+
+
+//FUNTION prototype menue
 void MainMenu();
 void InternalMenu();
 void SigninMenu_USERNAME();
@@ -12,13 +23,19 @@ void SeasonComplete(int seasonNum);
 void Achive_wheeloffortune();
 void NotAchive_wheeloffortune();
 
-//FUNTIONprototype login
-int userAmount();
+//FUNTION prototype login
+int  userAmount();
+void userSet();
+void showUser();
+bool checkPassword(std::string user , int pass);
+
 
 
 int main(){
     short int  choose=0;
-    std::cout <<userAmount();
+    std::cout <<userAmount()<<std::endl;
+    userSet();
+    std::cout<<checkPassword("mmd" , 1258);
 }
 
 
@@ -68,9 +85,48 @@ void NotAchive_wheeloffortune(){
 
 //FUNTION login
 int userAmount(){
-    std::ifstream user ("user.txt")
+    std::ifstream user ("user.txt");
         int amount=0 ;
         user >> amount;
-        return amount;use
-    
+        return amount;
+
 }
+void userSet(){
+    std::ifstream user ("user.txt");
+    int temp ;
+    user >> temp;
+    int counter=0;
+    while(user>>name [counter]>>password[counter]>>mission[counter]>>coin[counter]>>extra[counter]>>chance[counter]){
+        counter++;
+    }
+}
+void showUser(){
+    for(int i=0;i<userAmount();i++){
+            std::cout<<"name:\t"<<name[i]<<"\tpassword:\t"<<password[i]<<"\tmission:\t"<<mission[i]<<"\tcoin:\t"<<coin[i]<<"\textra:\t"<<extra[i]<<"\tchance:\t"<<chance[i]<<std::endl;
+            // std::cout<<name[i]<<password[i]<<mission[i]<<coin[i]<<extra[i]<<chance[i]<<std::endl;
+
+    }
+}
+bool checkPassword(std::string user , int pass)
+{   int i =0;
+    for( ; i<userAmount();i++)
+    {
+        if(user.compare(name[i])==0)
+        break;
+    }
+    if(i==userAmount()){
+        std::cout<< "there is no such a user name"<<std::endl;
+        return 0;
+    }
+    if(pass==password[i]){
+        return 1;
+    }
+    return 0;
+}
+
+
+
+
+
+
+
