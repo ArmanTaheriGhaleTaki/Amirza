@@ -23,24 +23,27 @@ void SeasonComplete(int seasonNum);
 void Achive_wheeloffortune();
 void NotAchive_wheeloffortune();
 
-//FUNTION prototype login
+//FUNCTION prototype login
 int  userAmount();
 void userSet();
 void showUser();
 bool checkPassword(std::string user , int pass);
 
+//FUNCTION prototype signup
+bool checkReapeat(std::string user);
+void makeUser();
 
 
 int main(){
     short int  choose=0;
     std::cout <<userAmount()<<std::endl;
     userSet();
-    std::cout<<checkPassword("mmd" , 1258);
+    makeUser();
 }
 
 
 
-//FUNTION menue
+//FUNCTION menue
 void MainMenu(){
     std::cout<<"Welcome to this game:\n";
     std::cout<<"******* Main Menu *******\n";
@@ -83,7 +86,7 @@ void NotAchive_wheeloffortune(){
     std::cout<<"you don't achive any chance for wheel of fortune";
 }
 
-//FUNTION login
+//FUNCTION login
 int userAmount(){
     std::ifstream user ("user.txt");
         int amount=0 ;
@@ -124,9 +127,36 @@ bool checkPassword(std::string user , int pass)
     return 0;
 }
 
+//FUNCTION signup
+bool checkReapeat(std::string user){
+        for(int i =0 ; i<userAmount();i++)
+    {
+        if(user.compare(name[i])==0)
+        return 1;
+    }
+    return 0;
+}
+void makeUser(){
+    int pass ;
+    std::string user;
+    std::cout<< "please enter username"<<std::endl;
+    std::cin>>user;
 
+while(checkReapeat(user)==1)
+{
+    std::cout<< "this user name has been taken please enter another username"<<std::endl;
+    std::cin>>user;
+}
+    std::cout<< "enter your password"<<std::endl;
+    std::cin>>pass;
 
-
+int tag =userAmount();
+password [tag]=pass;
+mission [tag]=1;
+coin [tag]=0;
+extra[tag]=0;
+chance[tag]=0;
+}
 
 
 
