@@ -1,8 +1,6 @@
 #include<iostream>
 #include<conio.h>
-#include "menu.h"
 #include <fstream>
-#include "login.h"
 
 //FUNTIONprototype menue
 void MainMenu();
