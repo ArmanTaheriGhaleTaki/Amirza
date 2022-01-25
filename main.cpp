@@ -14,7 +14,7 @@ int chance[30];
 int UserAmount=0;
 
 
-//FUNTION prototype menue
+//FUNCTION prototype menue
 void MainMenu();
 void InternalMenu();
 void SigninMenu_USERNAME();
@@ -25,7 +25,7 @@ void Achive_wheeloffortune();
 void NotAchive_wheeloffortune();
 
 //FUNCTION prototype login
-int  userAmount();
+void  userAmount();
 void userSet();
 void showUser();
 bool checkPassword(std::string user , int pass);
@@ -35,17 +35,20 @@ bool checkReapeat(std::string user);
 void makeUser();
 
 //FUNCTION prototype file
+void reWrite();
 
 
-//FUNCTION Rank
+//FUNCTION prototype Rank
 void showRank();
 
 
-
+//FUNCTION prototype InternalMenu
 
 
 int main(){
+    userAmount();
     short int  choose=0;
+    userSet();
     // MainMenu();
     // std::cin>>choose;
     // switch (choose)
@@ -54,7 +57,7 @@ int main(){
     //     makeUser();
     //     break;
     // case 2 :
-    
+
     //     break;
     // case 3 :
 
@@ -66,8 +69,10 @@ int main(){
 
     //     break;
     // }
-    userSet();
-    showRank();
+    showUser();
+    makeUser();
+    showUser();
+
     
 }
 
@@ -117,11 +122,11 @@ void NotAchive_wheeloffortune(){
 }
 
 //FUNCTION login
-int userAmount(){
+void userAmount(){
     std::ifstream user ("user.txt");
         int amount=0 ;
         user >> amount;
-        return amount;
+        UserAmount= amount;
 
 }
 void userSet(){
@@ -134,7 +139,7 @@ void userSet(){
     }
 }
 void showUser(){
-    for(int i=0;i<userAmount();i++){
+    for(int i=0;i<UserAmount;i++){
             std::cout<<"name:\t"<<name[i]<<"\tpassword:\t"<<password[i]<<"\tmission:\t"<<mission[i]<<"\tcoin:\t"<<coin[i]<<"\textra:\t"<<extra[i]<<"\tchance:\t"<<chance[i]<<std::endl;
             // std::cout<<name[i]<<password[i]<<mission[i]<<coin[i]<<extra[i]<<chance[i]<<std::endl;
 
@@ -142,12 +147,12 @@ void showUser(){
 }
 bool checkPassword(std::string user , int pass)
 {   int i =0;
-    for( ; i<userAmount();i++)
+    for( ; i<UserAmount;i++)
     {
         if(user.compare(name[i])==0)
         break;
     }
-    if(i==userAmount()){
+    if(i==UserAmount){
         std::cout<< "there is no such a user name"<<std::endl;
         return 0;
     }
@@ -173,7 +178,7 @@ bool login(){
 }
 //FUNCTION signup
 bool checkReapeat(std::string user){
-        for(int i =0 ; i<userAmount();i++)
+        for(int i =0 ; i<UserAmount;i++)
     {
         if(user.compare(name[i])==0)
         return 1;
@@ -204,24 +209,31 @@ while(checkReapeat(user)==1)
         std::cin>>temp;
     }
 
-int tag =userAmount();
+int tag =UserAmount;
+UserAmount++;
 name[tag]=user;
 password [tag]=pass;
 mission [tag]=1;
 coin [tag]=0;
 extra[tag]=0;
 chance[tag]=0;
+reWrite();
 
 }
 //FUNCTION file
 void reWrite(){
-
+    std::ofstream user ("user.txt");
+    user << UserAmount<<std::endl;
+    for (int i = 0; i < UserAmount ; i++)
+    {
+        user<<name[i]<<"\t"<<password[i]<<"\t"<<mission[i]<<"\t"<<coin[i]<<"\t"<<extra[i]<<"\t"<<chance[i]<<"\t\n";
+    }
 }
 
 
 //FUNCTION Rank
 void showRank(){
-    int amount =userAmount();
+    int amount =UserAmount;
     int  indexSort[amount];
     for(int i =0 ; i<amount;i++){
         indexSort[i]=i;
@@ -239,9 +251,23 @@ void showRank(){
     }
     for (int w = 0; w < amount; w++)
     {
-        std::cout<<"Username:\t"<<name[indexSort[w]]<<"\t\t"<<"misson:\t"<<mission[indexSort[w]]<<std::endl;
+        std::cout<<"Username:\t"<<name[indexSort[w]]<<"\t\t"<<"mission:\t"<<mission[indexSort[w]]<<std::endl;
     }
     std::cout<<std::endl;
 }
+
+
+//FUNCTION prototype InternalMenu
+
+
+
+
+
+
+
+
+
+
+
 
 
