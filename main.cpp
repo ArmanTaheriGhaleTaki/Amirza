@@ -3,6 +3,7 @@
 #include <fstream>
 #include <string>
 #include <cstring>
+#include<time.h>
 
 //global var 
 std::string name [30];
@@ -43,10 +44,13 @@ void showRank();
 
 
 //FUNCTION prototype InternalMenu
+void WheelofLuck(std::string username);
 
 
 int main(){
+    srand(time(0));
     userAmount();
+    std::string Username;
     short int  choose=0;
     userSet();
     // MainMenu();
@@ -70,8 +74,9 @@ int main(){
     //     break;
     // }
     showUser();
-    makeUser();
-    showUser();
+    // makeUser();
+    // showUser();
+    WheelofLuck("mohammad`");
 
     
 }
@@ -257,8 +262,51 @@ void showRank(){
 }
 
 
-//FUNCTION prototype InternalMenu
+//FUNCTION InternalMenu
+void WheelofLuck(std::string user){
+    int i =0;
+            for( ; i<UserAmount;i++){
+            if(user.compare(name[i])==0)
+            break;  
+    }
+    if(chance[i]==0){
+        std::cout<<"you don't have any chance for wheel of luck ."<<std::endl;
+    }
+    else
+    {   chance[i]--;
+        int temp = (rand()%20)+1;
+        switch (temp)
+        {
+        case 1 ... 6:
+            std::cout<<user<<" won 50\n";
+            coin[i]+=50;
+            break;
+        case 7 ... 10:
+            coin[i]+=70;
+            std::cout<<user<<" won 70\n";
 
+            break;
+        case 11 ... 14:
+            coin[i]+=90;
+            std::cout<<user<<" won 90\n";
+            break;
+        case 15 ... 17:
+            coin[i]+=110;
+            std::cout<<user<<" won 110\n";
+            break;
+        case 18 ... 19:
+            coin[i]+=150;
+            std::cout<<user<<" won 150\n";
+            break;
+        case 20 :
+            coin[i]+=220;
+            std::cout<<user<<" won 220\n";
+            break;
+        }
+        reWrite();
+    }
+
+}
 
 
 
