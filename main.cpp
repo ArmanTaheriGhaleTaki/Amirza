@@ -45,6 +45,8 @@ void showRank();
 
 //FUNCTION prototype InternalMenu
 void WheelofLuck(std::string username);
+void editProfile(std::string preuser);
+
 
 
 int main(){
@@ -53,30 +55,30 @@ int main(){
     std::string Username;
     short int  choose=0;
     userSet();
-    // MainMenu();
-    // std::cin>>choose;
-    // switch (choose)
-    // {
-    // case 1 :
-    //     makeUser();
-    //     break;
-    // case 2 :
+    MainMenu();
+    std::cin>>choose;
+    switch (choose)
+    {
+    case 1 :
+        makeUser();
+        break;
+    case 2 :
 
-    //     break;
-    // case 3 :
+        break;
+    case 3 :
 
-    //     break;
-    // case 4 :
+        break;
+    case 4 :
 
-    //     break;
-    // case 5 :
+        break;
+    case 5 :
 
-    //     break;
-    // }
+        break;
+    }
     showUser();
-    // makeUser();
-    // showUser();
-    WheelofLuck("mohammad`");
+    makeUser();
+    showUser();
+    editProfile("sara");
 
     
 }
@@ -270,7 +272,7 @@ void WheelofLuck(std::string user){
             break;  
     }
     if(chance[i]==0){
-        std::cout<<"you don't have any chance for wheel of luck ."<<std::endl;
+        std::cout<<user<<"  don't have any chance for wheel of luck ."<<std::endl;
     }
     else
     {   chance[i]--;
@@ -307,7 +309,47 @@ void WheelofLuck(std::string user){
     }
 
 }
+void editProfile(std::string preuser){
+    int pass,temp ;
+int i =0;
+            for( ; i<UserAmount;i++){
+            if(preuser.compare(name[i])==0)
+            break;  
+    }
+    std::cin>>pass;
+while (pass!=password[i])
+{
+    std::cout<<"the password is not correct\n";
+    std::cin>>pass;
+}
 
+    std::string user;
+    std::cout<< "please enter username"<<std::endl;
+    std::cin>>user;
+
+while(checkReapeat(user)==1)
+{
+    std::cout<< "this user name has been taken please enter another username"<<std::endl;
+    std::cin>>user;
+}
+    std::cout<<"enter your password"<<std::endl;
+    std::cin>>pass;
+    std::cout<<"confirm your password"<<std::endl;
+    std::cin>>temp;
+    while (temp!=pass)
+    {
+        std::cout<<"please enter the same pass word"<<std::endl;
+        std::cout<<"enter your password"<<std::endl;
+        std::cin>>pass;
+        std::cout<<"confirm your password"<<std::endl;
+        std::cin>>temp;
+    }
+
+name[i]=user;
+password [i]=pass;
+reWrite();
+
+}
 
 
 
