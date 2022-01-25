@@ -11,6 +11,7 @@ int mission [30];
 int coin [30];
 int extra[30];
 int chance[30];
+int UserAmount=0;
 
 
 //FUNTION prototype menue
@@ -33,12 +34,41 @@ bool checkPassword(std::string user , int pass);
 bool checkReapeat(std::string user);
 void makeUser();
 
+//FUNCTION prototype file
+
+
+//FUNCTION Rank
+void showRank();
+
+
+
+
 
 int main(){
     short int  choose=0;
-    std::cout <<userAmount()<<std::endl;
+    // MainMenu();
+    // std::cin>>choose;
+    // switch (choose)
+    // {
+    // case 1 :
+    //     makeUser();
+    //     break;
+    // case 2 :
+    
+    //     break;
+    // case 3 :
+
+    //     break;
+    // case 4 :
+
+    //     break;
+    // case 5 :
+
+    //     break;
+    // }
     userSet();
-    makeUser();
+    showRank();
+    
 }
 
 
@@ -126,7 +156,21 @@ bool checkPassword(std::string user , int pass)
     }
     return 0;
 }
-
+bool login(){
+    std::string user;
+    int pass,temp;
+    std::cout<<"enter your username";
+    std::cin>> user;
+    while (checkReapeat(user)==0)
+    {
+        std::cout<<"there is no such a user name please enter a valid one"<<std::endl;
+        std::cin>>user;
+    }
+    std::cout<<"enter your password"<<std::endl;
+    std::cin>>pass;
+    std::cout<<"repeat your password"<<std::endl;
+    std::cin>>temp;
+}
 //FUNCTION signup
 bool checkReapeat(std::string user){
         for(int i =0 ; i<userAmount();i++)
@@ -137,7 +181,7 @@ bool checkReapeat(std::string user){
     return 0;
 }
 void makeUser(){
-    int pass ;
+    int pass,temp ;
     std::string user;
     std::cout<< "please enter username"<<std::endl;
     std::cin>>user;
@@ -147,16 +191,57 @@ while(checkReapeat(user)==1)
     std::cout<< "this user name has been taken please enter another username"<<std::endl;
     std::cin>>user;
 }
-    std::cout<< "enter your password"<<std::endl;
+    std::cout<<"enter your password"<<std::endl;
     std::cin>>pass;
+    std::cout<<"confirm your password"<<std::endl;
+    std::cin>>temp;
+    while (temp!=pass)
+    {
+        std::cout<<"please enter the same pass word"<<std::endl;
+        std::cout<<"enter your password"<<std::endl;
+        std::cin>>pass;
+        std::cout<<"confirm your password"<<std::endl;
+        std::cin>>temp;
+    }
 
 int tag =userAmount();
+name[tag]=user;
 password [tag]=pass;
 mission [tag]=1;
 coin [tag]=0;
 extra[tag]=0;
 chance[tag]=0;
+
+}
+//FUNCTION file
+void reWrite(){
+
 }
 
+
+//FUNCTION Rank
+void showRank(){
+    int amount =userAmount();
+    int  indexSort[amount];
+    for(int i =0 ; i<amount;i++){
+        indexSort[i]=i;
+    }
+    for (int i = 0; i <amount ; i++)
+    {
+        for (int j = i+1; j <amount ; j++)
+        {
+            if(mission[indexSort[i]]<mission[indexSort[j]]){
+                int temp = indexSort[i];
+                indexSort[i]=indexSort[j];
+                indexSort[j]=temp;
+            }
+        }
+    }
+    for (int w = 0; w < amount; w++)
+    {
+        std::cout<<"Username:\t"<<name[indexSort[w]]<<"\t\t"<<"misson:\t"<<mission[indexSort[w]]<<std::endl;
+    }
+    std::cout<<std::endl;
+}
 
 
