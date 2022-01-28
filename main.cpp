@@ -1,18 +1,36 @@
 #include<iostream>
 #include<conio.h>
-#include <fstream>
-#include <string>
-#include <cstring>
+#include<fstream>
+#include<string>
+#include<cstring>
 #include<time.h>
+#include<stdlib.h>
 
-//global var 
+//global user array 
 std::string name [30];
 int password [30];
 int mission [30];
 int coin [30];
-int extra[30];
-int chance[30];
+int extra [30];
+int chance [30];
 int UserAmount=0;
+
+//global word struct
+struct word
+{
+    char chars[10];
+    int main;
+    int sub;
+    // std::string words[word.main+word.sub];
+};
+
+
+
+
+
+//global game var
+int seasonamount;
+
 
 
 //FUNCTION prototype menue
@@ -26,10 +44,11 @@ void Achive_wheeloffortune();
 void NotAchive_wheeloffortune();
 
 //FUNCTION prototype login
-void  userAmount();
+void userAmount();
 void userSet();
 void showUser();
 bool checkPassword(std::string user , int pass);
+bool login();
 
 //FUNCTION prototype signup
 bool checkReapeat(std::string user);
@@ -49,36 +68,58 @@ void editProfile(std::string preuser);
 
 
 
+
+// FUNCTION prototype Game
+void seasonNum();
+void setWords();
+void setMission(int * missonOfSeason);
+
+
 int main(){
+int missonOfSeason[seasonamount];
     srand(time(0));
     userAmount();
+    seasonNum();
     std::string Username;
     short int  choose=0;
     userSet();
+    main:
     MainMenu();
     std::cin>>choose;
+
     switch (choose)
     {
     case 1 :
         makeUser();
+
+        goto main;
         break;
     case 2 :
+    setMission( missonOfSeason );
+    if(login()==1)
+    {
 
+    }
+    else{
+    system("CLS");
+    goto main;
+    }
         break;
     case 3 :
 
+        showRank();
+        
+        goto main;
         break;
+
     case 4 :
 
         break;
     case 5 :
-
+    exit(1);
         break;
     }
-    showUser();
-    makeUser();
-    showUser();
-    editProfile("sara");
+    
 
     
 }
@@ -106,12 +147,6 @@ void InternalMenu(){
     std::cout<<"\n\n";
     std::cout<<"Please enter your choice:\n";
 }
-void SigninMenu_USERNAME(){
-    std::cout<<"Enter your username:\n";
-}
-void SigninMenu_PASSWORD(){
-    std::cout<<"Enter your password:\n";
-}
 void MissonComplete(int missionNum){
     std::cout<<"congratulations you have finished mission "<<missionNum<<std::endl;
 
@@ -121,11 +156,11 @@ void SeasonComplete(int seasonNum){
 
 }
 void Achive_wheeloffortune(){
-    std::cout<<"you achive a chance for wheel of fortune";
+    std::cout<<"you achieve a chance for wheel of fortune";
 
 }
 void NotAchive_wheeloffortune(){
-    std::cout<<"you don't achive any chance for wheel of fortune";
+    std::cout<<"you don't achieve any chance for wheel of fortune";
 }
 
 //FUNCTION login
@@ -169,20 +204,48 @@ bool checkPassword(std::string user , int pass)
     return 0;
 }
 bool login(){
+    system("CLS");
     std::string user;
     int pass,temp;
-    std::cout<<"enter your username";
+    std::cout<<"enter your username"<<std::endl;
     std::cin>> user;
+    int i =0;
     while (checkReapeat(user)==0)
     {
         std::cout<<"there is no such a user name please enter a valid one"<<std::endl;
         std::cin>>user;
     }
+    for( ; i<UserAmount;i++){
+    if(user.compare(name[i])==0)
+    break;  
+    }
     std::cout<<"enter your password"<<std::endl;
     std::cin>>pass;
-    std::cout<<"repeat your password"<<std::endl;
-    std::cin>>temp;
+    if(pass==password[i]){
+        return 1;
+    }
+    int j =2;
+    while (j>0)
+    {
+        switch (j)
+        {
+        case 2:
+            std::cout<<"password is not correct you can try "<<j<<" more times"<<std::endl;
+            break;
+        
+        case 1:
+            std::cout<<"password is not correct you can try "<<j<<" more time"<<std::endl;
+            break;
+        }
+        std::cin>>user;
+        j--;
+        if(pass==password[i]){
+        return 1;
+    }
+    }    
+    return 0;
 }
+
 //FUNCTION signup
 bool checkReapeat(std::string user){
         for(int i =0 ; i<UserAmount;i++)
@@ -193,6 +256,7 @@ bool checkReapeat(std::string user){
     return 0;
 }
 void makeUser(){
+    system("CLS");
     int pass,temp ;
     std::string user;
     std::cout<< "please enter username"<<std::endl;
@@ -225,6 +289,8 @@ coin [tag]=0;
 extra[tag]=0;
 chance[tag]=0;
 reWrite();
+    system("CLS");
+
 
 }
 //FUNCTION file
@@ -240,6 +306,7 @@ void reWrite(){
 
 //FUNCTION Rank
 void showRank(){
+    system("CLS");
     int amount =UserAmount;
     int  indexSort[amount];
     for(int i =0 ; i<amount;i++){
@@ -261,6 +328,8 @@ void showRank(){
         std::cout<<"Username:\t"<<name[indexSort[w]]<<"\t\t"<<"mission:\t"<<mission[indexSort[w]]<<std::endl;
     }
     std::cout<<std::endl;
+    getch();
+    system("CLS");
 }
 
 
@@ -286,7 +355,6 @@ void WheelofLuck(std::string user){
         case 7 ... 10:
             coin[i]+=70;
             std::cout<<user<<" won 70\n";
-
             break;
         case 11 ... 14:
             coin[i]+=90;
@@ -354,8 +422,25 @@ reWrite();
 
 
 
+// FUNCTION Game
+void seasonNum(){
+    std::ifstream user ("levels.txt");
+    int temp ;
+    user >> temp;
+    seasonamount=temp;
+}
+void setMission(int * missonOfSeason){
+    std::ifstream user ("levels.txt");
+    int temp ;
+    user >> temp;
+    for(int i =0 ; i<seasonamount;i++){
+        user>> missonOfSeason[i];
+    }
+}
+// void setWords(){
+//     word 
 
-
+// }
 
 
 
