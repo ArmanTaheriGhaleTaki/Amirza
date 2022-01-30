@@ -72,7 +72,18 @@ void editProfile(std::string preuser);
 
 // FUNCTION prototype Game
 void seasonNum();
-void setMission(int * missonOfSeason);
+void showup(int season ,int level,std::string user,word *word);
+bool isSolved(bool * input);
+
+
+
+
+//FUNCTION prototype game
+
+
+
+
+
 
 
 int main(){
@@ -98,8 +109,19 @@ int main(){
     std::string Username;
     short int  choose=0;
     userSet();
+
+
+showup(2 ,6,"ali",&missonLine[5]);
+
+
+
+
+
+
+
+
     main:
-    MainMenu();
+    // MainMenu();
     std::cin>>choose;
 
     switch (choose)
@@ -110,7 +132,6 @@ int main(){
         goto main;
         break;
     case 2 :
-    setMission( missionOfSeason );
     if(login()==1)
     {
 
@@ -121,13 +142,14 @@ int main(){
     }
         break;
     case 3 :
-        std::cout<<"hi";
         showRank();
-        
         goto main;
         break;
 
     case 4 :
+
+
+
         break;
     case 5 :
     exit(1);
@@ -443,16 +465,73 @@ void seasonNum(){
     user >> temp;
     seasonamount=temp;
 }
-void setMission(int * missonOfSeason){
-    std::ifstream user ("levels.txt");
-    int temp ;
-    user >> temp;
-    for(int i =0 ; i<seasonamount;i++){
-        user>> missonOfSeason[i];
+void showup(int season ,int level,std::string user,word *word){
+    int i =0;
+            for( ; i<UserAmount;i++){
+            if(user.compare(name[i])==0)
+            break;  
+            }
+    std::cout<< "season : "<<season<<"\tlevel : "<<level<<"\tcoin : "<<coin[i]<<"\textra words: "<<extra[i]<<std::endl<<std::endl;
+    for(int j=0;word->chars[j];j++)
+    {
+        std::cout<<word->chars[j]<<"  ";
     }
-}
+    std::cout<<std::endl<<std::endl;
+    int counterWord=0;
+    std::string answer;
+    for(int j=0;j<22;j++)
+    {
+        if(word->words[j][0]!='\0'){
+        counterWord++;
+        }
+    }
+    bool solved[counterWord]{0};
+        for(int t=0; isSolved(solved)==0;t++)
+        {
+        for(int j=0;j<counterWord;j++)
+            {
+                if(solved[j]==false)
+                {
+                for(int q=word->words[j].length();q>0;q--)
+                {
+                    std::cout<<"- ";
+                }
+                std::cout<<std::endl;
+                }
+                else{
+                    std::cout<<word->words[j]<<"\n";
+                }
+            }
+            std::cout<<"enter the word you want to solve"<<std::endl;
+            std::cin>> answer;
+            for(int z=0 ; z<counterWord;z++)
+            {
+                if(answer.compare(word->words[z])==0)
+                {
+                    solved[z]=true;
+                    std::cout<<"you solved the word"<<std::endl;
+                    getch();
+                    
+                }
+            }
+            system("cls");
+    std::cout<< "season : "<<season<<"\tlevel : "<<level<<"\tcoin : "<<coin[i]<<"\textra words: "<<extra[i]<<std::endl<<std::endl;
+    for(int j=0;word->chars[j];j++)
+    {
+        std::cout<<word->chars[j]<<"  ";
+    }
+    std::cout<<std::endl<<std::endl;
+        }
+    }
 
-    
+
+bool isSolved(bool * input){
+    for(int i =0 ; i<sizeof(input)/sizeof(input[0]);i++){
+        if(input[i]==false)
+        return false;
+    }
+    return true;
+}
 
 
 
