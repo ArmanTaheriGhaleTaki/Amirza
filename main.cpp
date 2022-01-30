@@ -5,7 +5,8 @@
 #include<cstring>
 #include<time.h>
 #include<stdlib.h>
-
+#include<vector>
+using std::vector;
 //global user array 
 std::string name [30];
 int password [30];
@@ -15,25 +16,25 @@ int extra [30];
 int chance [30];
 int UserAmount=0;
 
+//global variable
+int seasonamount;
 //global word struct
 struct word
 {
-    char chars[10];
+    std::string chars;
     int main;
     int sub;
-    // std::string words[word.main+word.sub];
+    // std::vector<std::string> words;
+    std::string words[50];
 };
 
 
 
 
 
-//global game var
-int seasonamount;
 
 
-
-//FUNCTION prototype menue
+//FUNCTION prototype menu
 void MainMenu();
 void InternalMenu();
 void SigninMenu_USERNAME();
@@ -71,15 +72,29 @@ void editProfile(std::string preuser);
 
 // FUNCTION prototype Game
 void seasonNum();
-void setWords();
 void setMission(int * missonOfSeason);
 
 
 int main(){
-int missonOfSeason[seasonamount];
     srand(time(0));
     userAmount();
     seasonNum();
+    std::ifstream user ("levels.txt");
+    int seasonAmount,lines=0 ;
+    user >> seasonAmount;
+    int missionOfSeason[seasonAmount];
+    for(int w =0 ; w<seasonAmount ;w++){
+        user>> missionOfSeason[w];
+        lines+=missionOfSeason[w];
+    }
+    word missonLine[lines];
+    for(int q=0;q<lines;q++){
+        user>> missonLine[q].chars >>missonLine[q].main>>missonLine[q].sub;
+        int counter=missonLine[q].main+missonLine[q].sub;
+        for(int e=0;e<counter;e++){
+            user>>missonLine[q].words[e];
+        }
+    }
     std::string Username;
     short int  choose=0;
     userSet();
@@ -95,7 +110,7 @@ int missonOfSeason[seasonamount];
         goto main;
         break;
     case 2 :
-    setMission( missonOfSeason );
+    setMission( missionOfSeason );
     if(login()==1)
     {
 
@@ -106,14 +121,13 @@ int missonOfSeason[seasonamount];
     }
         break;
     case 3 :
-
+        std::cout<<"hi";
         showRank();
         
         goto main;
         break;
 
     case 4 :
-
         break;
     case 5 :
     exit(1);
@@ -126,14 +140,14 @@ int missonOfSeason[seasonamount];
 
 
 
-//FUNCTION menue
+//FUNCTION menu
 void MainMenu(){
     std::cout<<"Welcome to this game:\n";
     std::cout<<"******* Main Menu *******\n";
     std::cout<<"1.Signup\n";
     std::cout<<"2.Login\n";
     std::cout<<"3.Rank\n";
-    std::cout<<"4.Challenge\n";
+    std::cout<<"4.challenge\n";
     std::cout<<"5.Exit\n\n";
     std::cout<<"Please enter your choice:\n";
 }
@@ -437,10 +451,10 @@ void setMission(int * missonOfSeason){
         user>> missonOfSeason[i];
     }
 }
-// void setWords(){
-//     word 
 
-// }
+    
+
+
 
 
 
