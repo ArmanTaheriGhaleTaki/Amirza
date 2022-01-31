@@ -1,3 +1,4 @@
+//including header files
 #include<iostream>
 #include<conio.h>
 #include<fstream>
@@ -5,8 +6,7 @@
 #include<cstring>
 #include<time.h>
 #include<stdlib.h>
-#include<vector>
-using std::vector;
+
 //global user array 
 std::string name [30];
 int password [30];
@@ -17,23 +17,19 @@ int chance [30];
 int UserAmount=0;
 
 //global variable
+
 int seasonamount;
 std::string username;
+
 //global word struct
+
 struct word
 {
     std::string chars;
     int main;
     int sub;
-    // std::vector<std::string> words;
     std::string words[50];
 };
-
-
-
-
-
-
 
 //FUNCTION prototype menu
 void MainMenu();
@@ -56,6 +52,7 @@ bool login();
 bool checkReapeat(std::string user);
 void makeUser();
 
+
 //FUNCTION prototype file
 void reWrite();
 
@@ -69,8 +66,6 @@ void WheelofLuck(std::string username);
 void editProfile(std::string preuser);
 
 
-
-
 // FUNCTION prototype Game
 void seasonNum();
 void showup(int level,std::string user,word *word);
@@ -79,20 +74,12 @@ bool isSolved(bool * input);
 
 
 
-//FUNCTION prototype game
-
-
-
-
-
-
-
 int main(){
     system("cls");
     srand(time(0));
-    userAmount();
-    seasonNum();
-    std::ifstream user ("levels.txt");
+    userAmount();//reads the amount of users from user.txt
+    seasonNum();//reads the amount of seasons from level.txt
+    std::ifstream user ("levels.txt");//reads the whole words form level.txt and puts them in the array of stuct "word"
     int seasonAmount,lines=0 ;
     user >> seasonAmount;
     int missionOfSeason[seasonAmount];
@@ -111,15 +98,6 @@ int main(){
     std::string Username;
     short int  choose=0;
     userSet();
-
-
-
-
-
-
-
-
-
 
     main:
     MainMenu();
@@ -174,9 +152,6 @@ int main(){
             break;
         }
     }
-    // else{
-    //     goto main;
-    // }
     else{
     system("CLS");
     goto main;
@@ -204,7 +179,7 @@ int main(){
 
 
 //FUNCTION menu
-void MainMenu(){
+void MainMenu(){//shows the main menu of the game
     std::cout<<"Welcome to this game:\n";
     std::cout<<"******* Main Menu *******\n";
     std::cout<<"1.Signup\n";
@@ -214,7 +189,7 @@ void MainMenu(){
     std::cout<<"5.Exit\n\n";
     std::cout<<"Please enter your choice:\n";
 }
-void InternalMenu(){
+void InternalMenu(){//shows the internal menu of the game
     std::cout<<"******* Internal Menu *******\n";
     std::cout<<"ussername : "<<username<<std::endl<<std::endl;
     std::cout<<"1.Continue game\n";
@@ -242,14 +217,14 @@ void NotAchive_wheeloffortune(){
 }
 
 //FUNCTION login
-void userAmount(){
+void userAmount(){//reads the amount of users from user.txt
     std::ifstream user ("user.txt");
         int amount=0 ;
         user >> amount;
         UserAmount= amount;
 
 }
-void userSet(){
+void userSet(){//reads the users and their information from user.txt
     std::ifstream user ("user.txt");
     int temp ;
     user >> temp;
@@ -258,15 +233,15 @@ void userSet(){
         counter++;
     }
 }
-void showUser(){
+void showUser(){//show all the users and their information
     for(int i=0;i<UserAmount;i++){
             std::cout<<"name:\t"<<name[i]<<"\tpassword:\t"<<password[i]<<"\tmission:\t"<<mission[i]<<"\tcoin:\t"<<coin[i]<<"\textra:\t"<<extra[i]<<"\tchance:\t"<<chance[i]<<std::endl;
             // std::cout<<name[i]<<password[i]<<mission[i]<<coin[i]<<extra[i]<<chance[i]<<std::endl;
 
     }
 }
-bool checkPassword(std::string user , int pass)
-{   int i =0;
+bool checkPassword(std::string user , int pass){ //check if the password is correct
+    int i =0;
     for( ; i<UserAmount;i++)
     {
         if(user.compare(name[i])==0)
@@ -281,7 +256,7 @@ bool checkPassword(std::string user , int pass)
     }
     return 0;
 }
-bool login(){
+bool login(){//checks if the user name and password are correct
     system("CLS");
     int pass,temp;
     std::cout<<"enter your username"<<std::endl;
@@ -325,7 +300,7 @@ bool login(){
 }
 
 //FUNCTION signup
-bool checkReapeat(std::string user){
+bool checkReapeat(std::string user){//checks if the username is already exist
         for(int i =0 ; i<UserAmount;i++)
     {
         if(user.compare(name[i])==0)
@@ -333,7 +308,7 @@ bool checkReapeat(std::string user){
     }
     return 0;
 }
-void makeUser(){
+void makeUser(){//maiking new user 
     system("CLS");
     int pass,temp ;
     std::string user;
@@ -372,7 +347,7 @@ reWrite();
 
 }
 //FUNCTION file
-void reWrite(){
+void reWrite(){//rewrite the user.txt file
     std::ofstream user ("user.txt");
     user << UserAmount<<std::endl;
     for (int i = 0; i < UserAmount ; i++)
@@ -383,7 +358,7 @@ void reWrite(){
 
 
 //FUNCTION Rank
-void showRank(){
+void showRank(){//show the sorted user by their mission number that they passed
     system("CLS");
     int amount =UserAmount;
     int  indexSort[amount];
@@ -412,7 +387,7 @@ void showRank(){
 
 
 //FUNCTION InternalMenu
-void WheelofLuck(std::string user){
+void WheelofLuck(std::string user){//rooling the wheelofluck
     int i =0;
             for( ; i<UserAmount;i++){
             if(user.compare(name[i])==0)
@@ -456,7 +431,7 @@ void WheelofLuck(std::string user){
     }
 
 }
-void editProfile(std::string preuser){
+void editProfile(std::string preuser){//making new user name and password for an account 
     int pass,temp ;
 int i =0;
             for( ; i<UserAmount;i++){
@@ -505,7 +480,7 @@ reWrite();
 
 
 // FUNCTION Game
-void seasonNum(){
+void seasonNum(){//reads the amount of seasons  from the level.txt
     std::ifstream user ("levels.txt");
     int temp ;
     user >> temp;
@@ -588,7 +563,7 @@ void showup(int level,std::string user,word *word){
     }
 
 
-bool isSolved(bool * input){
+bool isSolved(bool * input){//checks if all the words are solved by user
     for(int i =0 ; i<sizeof(input)/sizeof(input[0]);i++){
         if(input[i]==false)
         return false;
