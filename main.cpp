@@ -18,6 +18,7 @@ int UserAmount=0;
 
 //global variable
 int seasonamount;
+std::string username;
 //global word struct
 struct word
 {
@@ -72,7 +73,7 @@ void editProfile(std::string preuser);
 
 // FUNCTION prototype Game
 void seasonNum();
-void showup(int season ,int level,std::string user,word *word);
+void showup(int level,std::string user,word *word);
 bool isSolved(bool * input);
 
 
@@ -87,6 +88,7 @@ bool isSolved(bool * input);
 
 
 int main(){
+    system("cls");
     srand(time(0));
     userAmount();
     seasonNum();
@@ -111,7 +113,6 @@ int main(){
     userSet();
 
 
-showup(2 ,6,"ali",&missonLine[5]);
 
 
 
@@ -121,7 +122,7 @@ showup(2 ,6,"ali",&missonLine[5]);
 
 
     main:
-    // MainMenu();
+    MainMenu();
     std::cin>>choose;
 
     switch (choose)
@@ -133,9 +134,49 @@ showup(2 ,6,"ali",&missonLine[5]);
         break;
     case 2 :
     if(login()==1)
-    {
+    {            
+        int userIndex =0;
+            for( ; userIndex<UserAmount;userIndex++){
+            if(username.compare(name[userIndex])==0)
+            break;  
+            }
+        sub:
+        system("CLS");
+        InternalMenu();
 
+        std::cin >> choose;
+        switch (choose)
+        {
+        case 1:
+        showup(mission[userIndex],username,&missonLine[mission[userIndex]]);
+        
+            break;
+        case 2:
+        
+            break;
+        case 3:
+        system("cls");
+        WheelofLuck( username);
+        getch();
+        goto sub;
+            break;
+        case 4:
+        system("cls");
+        editProfile(username);
+        goto sub;
+            break;
+        case 5:
+        system("CLS");
+        goto main;
+            break;
+        
+        
+            break;
+        }
     }
+    // else{
+    //     goto main;
+    // }
     else{
     system("CLS");
     goto main;
@@ -175,6 +216,7 @@ void MainMenu(){
 }
 void InternalMenu(){
     std::cout<<"******* Internal Menu *******\n";
+    std::cout<<"ussername : "<<username<<std::endl<<std::endl;
     std::cout<<"1.Continue game\n";
     std::cout<<"2.Choose level\n";
     std::cout<<"3.Wheel of Luck\n";
@@ -241,18 +283,17 @@ bool checkPassword(std::string user , int pass)
 }
 bool login(){
     system("CLS");
-    std::string user;
     int pass,temp;
     std::cout<<"enter your username"<<std::endl;
-    std::cin>> user;
+    std::cin>> username;
     int i =0;
-    while (checkReapeat(user)==0)
+    while (checkReapeat(username)==0)
     {
-        std::cout<<"there is no such a user name please enter a valid one"<<std::endl;
-        std::cin>>user;
+        std::cout<<"there is no such a username please enter a valid one"<<std::endl;
+        std::cin>>username;
     }
     for( ; i<UserAmount;i++){
-    if(user.compare(name[i])==0)
+    if(username.compare(name[i])==0)
     break;  
     }
     std::cout<<"enter your password"<<std::endl;
@@ -273,10 +314,11 @@ bool login(){
             std::cout<<"password is not correct you can try "<<j<<" more time"<<std::endl;
             break;
         }
-        std::cin>>user;
+        std::cin>>username;
         j--;
         if(pass==password[i]){
         return 1;
+
     }
     }    
     return 0;
@@ -410,6 +452,7 @@ void WheelofLuck(std::string user){
             break;
         }
         reWrite();
+
     }
 
 }
@@ -420,6 +463,8 @@ int i =0;
             if(preuser.compare(name[i])==0)
             break;  
     }
+    std::cout<<"ussername : "<<username<<std::endl<<std::endl;
+    std::cout<<"enter your password"<<std::endl;
     std::cin>>pass;
 while (pass!=password[i])
 {
@@ -428,7 +473,7 @@ while (pass!=password[i])
 }
 
     std::string user;
-    std::cout<< "please enter username"<<std::endl;
+    std::cout<< "please enter new username"<<std::endl;
     std::cin>>user;
 
 while(checkReapeat(user)==1)
@@ -436,21 +481,22 @@ while(checkReapeat(user)==1)
     std::cout<< "this user name has been taken please enter another username"<<std::endl;
     std::cin>>user;
 }
-    std::cout<<"enter your password"<<std::endl;
+    std::cout<<"enter your new password"<<std::endl;
     std::cin>>pass;
-    std::cout<<"confirm your password"<<std::endl;
+    std::cout<<"confirm your new password"<<std::endl;
     std::cin>>temp;
     while (temp!=pass)
     {
-        std::cout<<"please enter the same pass word"<<std::endl;
-        std::cout<<"enter your password"<<std::endl;
+        std::cout<<"please enter the same password"<<std::endl;
+        std::cout<<"enter your  new password"<<std::endl;
         std::cin>>pass;
-        std::cout<<"confirm your password"<<std::endl;
+        std::cout<<"confirm your new password"<<std::endl;
         std::cin>>temp;
     }
 
 name[i]=user;
 password [i]=pass;
+username=user;
 reWrite();
 
 }
@@ -465,7 +511,24 @@ void seasonNum(){
     user >> temp;
     seasonamount=temp;
 }
-void showup(int season ,int level,std::string user,word *word){
+void showup(int level,std::string user,word *word){
+    std::ifstream userFile ("levels.txt");
+    int seasonAmount,lines=0 ;
+    userFile >> seasonAmount;
+    int missionOfSeason[seasonAmount];
+    for(int w =0 ; w<seasonAmount ;w++){
+        userFile>> missionOfSeason[w];
+    }
+    int season =1;
+    for(int r=0,leveltemp=level;r<seasonAmount;r++){
+        if(leveltemp<=missionOfSeason[r]){
+            break;
+        }
+        else{
+            leveltemp-=missionOfSeason[r];
+            season++;
+        }
+    }
     int i =0;
             for( ; i<UserAmount;i++){
             if(user.compare(name[i])==0)
