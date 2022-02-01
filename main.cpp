@@ -71,6 +71,8 @@ void seasonNum();
 void showup(int level,std::string user,word *word);
 int showLevels(std::string user,int missionOfSeason[]);
 void showdown(int level,std::string user,word *word);
+void challenge(word *word);
+
 
 
 
@@ -100,7 +102,7 @@ int main(){
     std::string Username;
     short int  choose=0;
     userSet();
-
+    int randomnum=rand()%lines;
     main:
     MainMenu();
     choose=0;
@@ -180,9 +182,8 @@ int main(){
         break;
 
     case 4 :
-
-
-
+    challenge(&missonLine[randomnum]);
+    goto main;
         break;
     case 5 :
     exit(1);
@@ -777,5 +778,107 @@ void showdown(int level,std::string user,word *word){
     std::cout<<std::endl<<std::endl;
     }
 }
+void challenge(word *word){
+    system("cls");
+    std::string user1;
+    std::string user2;
+    int temp=0;
+    std::cout<<"enter the username of the first player"<<std::endl;
+    std::cin>>user1;
+    std::cout<<"enter the username of the second player"<<std::endl;
+    std::cin>>user2;
+    system("CLS");
+    int user1score=0;
+    int user2score=0;
+    int usernum =-1;
+    std::cout<<user1<<" : "<<user1score<<"\t"<<user2<<" : "<<user2score<<std::endl;
+    std::cout<<"turn: "<<user1<<std::endl;
+    for(int j=0;word->chars[j];j++)
+    {
+        std::cout<<word->chars[j]<<"  ";
+    }
+    std::cout<<std::endl<<std::endl;
+    int counterWord=0;
+    std::string answer;
+    for(int j=0;j<22;j++)
+    {
+        if(word->words[j][0]!='\0'){
+        counterWord++;
+        }
+    }
+    bool solved[counterWord]{0};
+        for(bool flag=0; flag==0;){
+            if(temp){
+            if(usernum==-1){
+                std::cout<<"turn: "<<user1<<std::endl;
+            }
+            else{
+                std::cout<<"turn: "<<user2<<std::endl;
+            }
+            }
+        for(int j=0;j<counterWord;j++){
+                if(solved[j]==false){
+                for(int q=word->words[j].length();q>0;q--){
+                    std::cout<<"- ";
+                }
+                std::cout<<std::endl;
+                }
+                else{
+                    std::cout<<word->words[j]<<"\n";
+                }
+        }
 
+            std::cout<<"enter the word you want to solve"<<std::endl;
+            std::cin>> answer;
+            for(int z=0 ; z<counterWord;z++){
+                if(answer.compare(word->words[z])==0){
+                    if(solved[z]==true){
+                        std::cout<<"this word is already solved "<<std::endl;
+                        getch();
+                    }
+                    else{
+                        if(usernum==-1){
+                            user1score++;
+                        }
+                        else{
+                            user2score++;
+                        }
+                    std::cout<<"you solved the word"<<std::endl;
+                    solved[z]=true;
+                    getch();
+                    }
+                    
+                }
+            }
+            for(int h=0 , counter=0;h<counterWord;h++){
+                if(solved[h]==true){
+                    counter++;
+                }
+                if(counter==counterWord){
+                    flag=1;
+                    break;
+                }
+            }
+            system("CLS");
+    std::cout<<user1<<" : "<<user1score<<"\t"<<user2<<" : "<<user2score<<std::endl;
+    for(int j=0;word->chars[j];j++)
+    {
+    std::cout<<word->chars[j]<<"  ";
+    }
+    std::cout<<std::endl<<std::endl;
+    usernum*=-1;
+    temp++;
+    }
+    if(user1score>user2score){
+        std::cout<<user1<<" won the game"<<std::endl;
+    }
+    else if(user1score<user2score){
+        std::cout<<user2<<" won the game"<<std::endl;
+    }
+    else{
+        std::cout<<"the game is draw"<<std::endl;
+    }
+    getch();
+    system("CLS");
+}
 
