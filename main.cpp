@@ -34,12 +34,6 @@ struct word
 //FUNCTION prototype menu
 void MainMenu();
 void InternalMenu();
-void SigninMenu_USERNAME();
-void SigninMenu_PASSWORD();
-void MissonComplete(int missionNum);
-void SeasonComplete(int seasonNum);
-void Achive_wheeloffortune();
-void NotAchive_wheeloffortune();
 
 //FUNCTION prototype login
 void userAmount();
@@ -72,11 +66,6 @@ void showup(int level,std::string user,word *word);
 int showLevels(std::string user,int missionOfSeason[]);
 void showdown(int level,std::string user,word *word);
 void challenge(word *word);
-
-
-
-
-
 
 int main(){
     system("CLS");
@@ -189,12 +178,7 @@ int main(){
     exit(1);
         break;
     }
-    
-
-    
 }
-
-
 
 //FUNCTION menu
 void MainMenu(){//shows the main menu of the game
@@ -218,22 +202,6 @@ void InternalMenu(){//shows the internal menu of the game
     std::cout<<"\n\n";
     std::cout<<"Please enter your choice:\n";
 }
-void MissonComplete(int missionNum){
-    std::cout<<"congratulations you have finished mission "<<missionNum<<std::endl;
-
-}
-void SeasonComplete(int seasonNum){
-    std::cout<<"congratulations you have finished season "<<seasonNum<<std::endl;
-
-}
-void Achive_wheeloffortune(){
-    std::cout<<"you achieve a chance for wheel of fortune";
-
-}
-void NotAchive_wheeloffortune(){
-    std::cout<<"you don't achieve any chance for wheel of fortune";
-}
-
 //FUNCTION login
 void userAmount(){//reads the amount of users from user.txt
     std::ifstream user ("user.txt");
@@ -254,8 +222,6 @@ void userSet(){//reads the users and their information from user.txt
 void showUser(){//show all the users and their information
     for(int i=0;i<UserAmount;i++){
             std::cout<<"name:\t"<<name[i]<<"\tpassword:\t"<<password[i]<<"\tmission:\t"<<mission[i]<<"\tcoin:\t"<<coin[i]<<"\textra:\t"<<extra[i]<<"\tchance:\t"<<chance[i]<<std::endl;
-            // std::cout<<name[i]<<password[i]<<mission[i]<<coin[i]<<extra[i]<<chance[i]<<std::endl;
-
     }
 }
 bool checkPassword(std::string user , int pass){ //check if the password is correct
@@ -311,7 +277,6 @@ bool login(){//checks if the user name and password are correct
         j--;
         if(pass==password[i]){
         return 1;
-
     }
     }    
     return 0;
@@ -361,8 +326,6 @@ extra[tag]=0;
 chance[tag]=0;
 reWrite();
     system("CLS");
-
-
 }
 //FUNCTION file
 void reWrite(){//rewrite the user.txt file
@@ -373,7 +336,6 @@ void reWrite(){//rewrite the user.txt file
         user<<name[i]<<"\t"<<password[i]<<"\t"<<mission[i]<<"\t"<<coin[i]<<"\t"<<extra[i]<<"\t"<<chance[i]<<"\t\n";
     }
 }
-
 
 //FUNCTION Rank
 void showRank(){//show the sorted user by their mission number that they passed
@@ -402,7 +364,6 @@ void showRank(){//show the sorted user by their mission number that they passed
     getch();
     system("CLS");
 }
-
 
 //FUNCTION InternalMenu
 void WheelofLuck(std::string user){//rooling the wheelofluck
@@ -493,9 +454,6 @@ username=user;
 reWrite();
 
 }
-
-
-
 
 // FUNCTION Game
 void seasonNum(){//reads the amount of seasons  from the level.txt
@@ -881,4 +839,3 @@ void challenge(word *word){
     getch();
     system("CLS");
 }
-
