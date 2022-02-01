@@ -69,12 +69,14 @@ void editProfile(std::string preuser);
 // FUNCTION prototype Game
 void seasonNum();
 void showup(int level,std::string user,word *word);
+int showLevels(std::string user,int missionOfSeason[]);
+
 
 
 
 
 int main(){
-    system("cls");
+    system("CLS");
     srand(time(0));
     userAmount();//reads the amount of users from user.txt
     seasonNum();//reads the amount of seasons from level.txt
@@ -100,13 +102,13 @@ int main(){
 
     main:
     MainMenu();
+    choose=0;
     std::cin>>choose;
 
     switch (choose)
     {
     case 1 :
         makeUser();
-
         goto main;
         break;
     case 2 :
@@ -120,42 +122,41 @@ int main(){
         sub:
         system("CLS");
         InternalMenu();
-
+        choose=0;
         std::cin >> choose;
+        int missionlevel=0;
         switch (choose)
         {
         play:
-        system("cls");
+        system("CLS");
         case 1:
         showup(mission[userIndex],username,&missonLine[mission[userIndex]-1]);
         std::cout<<"would you like to play next mission?"<<std::endl;
         std::cout<<"1.yes"<<std::endl;
         std::cout<<"2.no"<<std::endl<<std::endl;
+        choose=0;
         std::cin>>choose;
-        switch (choose)
-        {
-
-        case 1:
-        showup(mission[userIndex],username,&missonLine[mission[userIndex]-1]);
-        goto play;
-        break;
+            switch (choose)
+            {
+            case 1:
+                showup(mission[userIndex],username,&missonLine[mission[userIndex]-1]);
+                goto play;
+                break;
+            case 2:
+                goto sub;
+            break;
+            }
         case 2:
-        goto sub;
-        break;
-        }
-        case 2:
-        
-
-
+            missionlevel=showLevels( username, missionOfSeason);
         break;
         case 3:
-        system("cls");
+        system("CLS");
         WheelofLuck(username);
         getch();
         goto sub;
             break;
         case 4:
-        system("cls");
+        system("CLS");
         editProfile(username);
         goto sub;
             break;
@@ -499,7 +500,7 @@ void seasonNum(){//reads the amount of seasons  from the level.txt
     user >> temp;
     seasonamount=temp;
 }
-void showup(int level,std::string user,word *word){
+void showup(int level,std::string user,word *word){//shows the words that the user has to guess
     std::ifstream userFile ("levels.txt");
     int seasonAmount,lines=0 ;
     userFile >> seasonAmount;
@@ -508,7 +509,8 @@ void showup(int level,std::string user,word *word){
         userFile>> missionOfSeason[w];
     }
     int season =1;
-    for(int r=0,leveltemp=level;r<seasonAmount;r++){
+    int leveltemp = level;
+    for(int r=0;r<seasonAmount;r++){
         if(leveltemp<=missionOfSeason[r]){
             break;
         }
@@ -522,7 +524,7 @@ void showup(int level,std::string user,word *word){
             if(user.compare(name[i])==0)
             break;  
             }
-    std::cout<< "season : "<<season<<"\tlevel : "<<level<<"\tcoin : "<<coin[i]<<"\textra words: "<<extra[i]<<std::endl<<std::endl;
+    std::cout<< "season : "<<season<<"\tlevel : "<<leveltemp<<"\tcoin : "<<coin[i]<<"\textra words: "<<extra[i]<<std::endl<<std::endl;
     std::cout<<"ussername : "<<username<<std::endl<<std::endl;
     std::cout<<"mian words : "<<word->main<<"\t\tsub words : "<<word->sub<<std::endl;
 
@@ -573,6 +575,8 @@ void showup(int level,std::string user,word *word){
                                 extra[i]-=6;
                                 coin[i]+=50;
                                 std::cout<<"you receive 50 coins because you give 6 extra words to the game"<<std::endl;
+                                reWrite();
+
                             }
                             reWrite();
                         }
@@ -591,8 +595,8 @@ void showup(int level,std::string user,word *word){
                     break;
                 }
             }
-            system("cls");
-    std::cout<< "season : "<<season<<"\tlevel : "<<level<<"\tcoin : "<<coin[i]<<"\textra words: "<<extra[i]<<std::endl<<std::endl;
+            system("CLS");
+    std::cout<< "season : "<<season<<"\tlevel : "<<leveltemp<<"\tcoin : "<<coin[i]<<"\textra words: "<<extra[i]<<std::endl<<std::endl;
     std::cout<<"ussername : "<<username<<std::endl<<std::endl;
     std::cout<<"mian words : "<<word->main<<"\t\tsub words : "<<word->sub<<std::endl;
     for(int j=0;word->chars[j];j++)
@@ -600,8 +604,8 @@ void showup(int level,std::string user,word *word){
     std::cout<<word->chars[j]<<"  ";
     }
     std::cout<<std::endl<<std::endl;
-        }
-            system("cls");
+    }
+            system("CLS");
             std::cout<<"congratulations you passed the mission "<<std::endl;
             mission[i]++;
             std::cout<<"here is your reward 100 coins"<<std::endl<<std::endl;
@@ -624,4 +628,54 @@ void showup(int level,std::string user,word *word){
 
     }
 }
+int showLevels(std::string user,int missionOfSeason[]){
+system("CLS");
+    int result=0;
+        int i =0;
+            for( ; i<UserAmount;i++){
+            if(username.compare(name[i])==0)
+            break;  
+    }
+    std::cout<<"which mission would you like to play?"<<std::endl;
+    for(int g=0,t=0;g<mission[i];g++){
+            int season =1;
+    int leveltemp = g+1;
+    for(int r=0;r<seasonamount;r++){
+        if(leveltemp<=missionOfSeason[r]){
+            break;
+        }
+        else{
+            leveltemp-=missionOfSeason[r];
+            season++;
+        }
+    }
 
+    std::cout<<g+1<<" .season "<<season<<"\tmission "<<leveltemp<<std::endl;
+    }
+    std::cout<<std::endl;
+    std::cin>>result;
+    system("CLS");
+    for(;result<1||result>mission[i];){
+        std::cout<<"you have to choose a mission that you have already passed"<<std::endl;
+        std::cout<<"which mission would you like to play?"<<std::endl;
+    for(int g=0,t=0;g<mission[i];g++){
+            int season =1;
+    int leveltemp = g+1;
+    for(int r=0;r<seasonamount;r++){
+        if(leveltemp<=missionOfSeason[r]){
+            break;
+        }
+        else{
+            leveltemp-=missionOfSeason[r];
+            season++;
+        }
+    }
+
+    std::cout<<g+1<<" .season "<<season<<"\tmission "<<leveltemp<<std::endl;
+    }
+    std::cout<<std::endl;
+    std::cin>>result;
+    system("CLS");
+    }
+return result;
+}
