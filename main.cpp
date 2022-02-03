@@ -796,9 +796,10 @@ void challenge(word *word){
                     std::cout<<word->words[j]<<"\n";
                 }
         }
-
+            std::cout<<"enter * to give up"<<std::endl;
             std::cout<<"enter the word you want to solve"<<std::endl;
             std::cin>> answer;
+            if(answer.compare("*")!=0){
             for(int z=0 ; z<counterWord;z++){
                 if(answer.compare(word->words[z])==0){
                     if(solved[z]==true){
@@ -840,6 +841,11 @@ void challenge(word *word){
     usernum*=-1;
     temp++;
     }
+}
+else{
+    flag=1;
+    system("CLS");
+}
 }
     if(user1score>user2score){
         std::cout<<user1<<" won the game"<<std::endl;
