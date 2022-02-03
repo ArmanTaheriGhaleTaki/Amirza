@@ -139,7 +139,6 @@ int main(){
         case 3:
         system("CLS");
         WheelofLuck(username);
-        getch();
         goto sub;
             break;
         case 4:
@@ -360,6 +359,7 @@ void showRank(){//show the sorted user by their mission number that they passed
 
 //FUNCTION InternalMenu
 void WheelofLuck(std::string user){//rooling the wheelofluck
+    int choice=0;
     int i =0;
             for( ; i<UserAmount;i++){
             if(user.compare(name[i])==0)
@@ -369,7 +369,27 @@ void WheelofLuck(std::string user){//rooling the wheelofluck
         std::cout<<user<<"  don't have any chance for wheel of luck ."<<std::endl;
     }
     else
-    {   chance[i]--;
+    {  
+        if(chance[i]==1){
+        std::cout<<user<<" has "<<chance[i]<<" chance for wheel of luck ."<<std::endl;
+        }
+        else{
+        std::cout<<user<<" has "<<chance[i]<<" chances for wheel of luck ."<<std::endl;
+        }
+        std::cout<<"wheel of luck has 6 kinds of awards"<<std::endl;
+        std::cout<<"50  coins 30% chance"<<std::endl;
+        std::cout<<"70  coins 20% chance"<<std::endl;
+        std::cout<<"90  coins 20% chance"<<std::endl;
+        std::cout<<"110 coins 15% chance"<<std::endl;
+        std::cout<<"150 coins 10% chance"<<std::endl;
+        std::cout<<"220 coins  5% chance"<<std::endl;
+        std::cout<<"would you like to roll the wheel of luck?"<<std::endl;
+        std::cout<<"1.yes"<<std::endl;
+        std::cout<<"2.no"<<std::endl<<std::endl;
+        std::cin>>choice;
+    }
+        if(choice==1){
+        chance[i]--;
         int temp = (rand()%20)+1;
         switch (temp)
         {
@@ -398,6 +418,7 @@ void WheelofLuck(std::string user){//rooling the wheelofluck
             std::cout<<user<<" won 220\n";
             break;
         }
+        getch();
         reWrite();
 
     }
