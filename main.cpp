@@ -797,11 +797,12 @@ void challenge(word *word){
                     else{
                         if(usernum==-1){
                             user1score++;
+                    std::cout<<user1<<" solved the word"<<std::endl;
                         }
                         else{
                             user2score++;
+                    std::cout<<user2<<" solved the word"<<std::endl;
                         }
-                    std::cout<<"you solved the word"<<std::endl;
                     solved[z]=true;
                     getch();
                     }
@@ -819,6 +820,7 @@ void challenge(word *word){
             }
             system("CLS");
     std::cout<<user1<<" : "<<user1score<<"\t"<<user2<<" : "<<user2score<<std::endl;
+    if(flag==0){
     for(int j=0;word->chars[j];j++)
     {
     std::cout<<word->chars[j]<<"  ";
@@ -827,6 +829,7 @@ void challenge(word *word){
     usernum*=-1;
     temp++;
     }
+}
     if(user1score>user2score){
         std::cout<<user1<<" won the game"<<std::endl;
     }
