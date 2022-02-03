@@ -807,13 +807,13 @@ void challenge(word *word){
                     }
                     else{
                         if(usernum==-1){
-                            user1score++;
+                            user1score+=answer.size();
                     std::cout<<user1<<" solved the word"<<std::endl;
-                        }
+                    }
                         else{
-                            user2score++;
+                            user2score+=answer.size();
                     std::cout<<user2<<" solved the word"<<std::endl;
-                        }
+                    }
                     solved[z]=true;
                     getch();
                     }
