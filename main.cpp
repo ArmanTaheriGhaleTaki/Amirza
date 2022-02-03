@@ -273,7 +273,7 @@ bool login(){//checks if the user name and password are correct
             std::cout<<"password is not correct you can try "<<j<<" more time"<<std::endl;
             break;
         }
-        std::cin>>username;
+        std::cin>>pass;
         j--;
         if(pass==password[i]){
         return 1;
