@@ -472,7 +472,8 @@ void showup(int level,std::string user,word *word){//shows the words that the us
     }
     int season =1;
     int leveltemp = level;
-    for(int r=0;r<seasonAmount;r++){
+    int r=0;
+    for(;r<seasonAmount;r++){
         if(leveltemp<=missionOfSeason[r]){
             break;
         }
@@ -572,23 +573,13 @@ void showup(int level,std::string user,word *word){//shows the words that the us
             mission[i]++;
             std::cout<<"here is your reward 100 coins"<<std::endl<<std::endl;
             coin[i]+=100;
-            int seasontemp=season;
-            for(int r=0,leveltemp=level+1;r<seasonAmount;r++){
-        if(leveltemp<=missionOfSeason[r]){
-            break;
-        }
-        else{
-            leveltemp-=missionOfSeason[r];
-            seasontemp++;
-        }
-    }
-    if(seasontemp!=season){
+            leveltemp++;
+    if(leveltemp>missionOfSeason[r]){
         std::cout<<"you passed the season too"<<std::endl;
         std::cout<<"your reward is a chance for wheel of luck"<<std::endl; 
         chance[i]++;
-            reWrite();
-
     }
+    reWrite();
 }
 int showLevels(std::string user,int missionOfSeason[]){//reads the level that player wants to play
 system("CLS");
