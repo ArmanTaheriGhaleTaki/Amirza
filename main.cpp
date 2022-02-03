@@ -843,8 +843,17 @@ void challenge(word *word){
     }
 }
 else{
-    flag=1;
     system("CLS");
+    flag=1;
+    if(usernum==-1){
+        std::cout<<user2<<" won the game"<<std::endl;
+    }
+    else{
+        std::cout<<user1<<" won the game"<<std::endl;
+    }
+    getch();
+    system("CLS");
+    return;
 }
 }
     if(user1score>user2score){
