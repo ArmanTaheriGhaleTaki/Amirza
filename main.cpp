@@ -62,7 +62,7 @@ void editProfile(std::string preuser);
 
 // FUNCTION prototype Game
 void seasonNum();
-void showup(int level,std::string user,word *word);
+int showup(int level,std::string user,word *word);
 int showLevels(std::string user,int missionOfSeason[]);
 void showdown(int level,std::string user,word *word);
 void challenge(word *word);
@@ -119,25 +119,18 @@ int main(){
         int missionlevel=0;
         switch (choose)
         {
+        case 1:
         play:
         system("CLS");
-        case 1:
-        showup(mission[userIndex],username,&missonLine[mission[userIndex]-1]);
-        std::cout<<"would you like to play next mission?"<<std::endl;
-        std::cout<<"1.yes"<<std::endl;
-        std::cout<<"2.no"<<std::endl<<std::endl;
-        choose=0;
-        std::cin>>choose;
-            switch (choose)
-            {
-            case 1:
+            choose=showup(mission[userIndex],username,&missonLine[mission[userIndex]-1]);
+            if(choose==1){
                 showup(mission[userIndex],username,&missonLine[mission[userIndex]-1]);
                 goto play;
-                break;
-            case 2:
-                goto sub;
-            break;
             }
+                else{
+                goto sub;
+            }
+            
         case 2:
             missionlevel=showLevels( username, missionOfSeason);
             showdown(missionlevel,username,&missonLine[mission[userIndex]-1]);
@@ -462,7 +455,7 @@ void seasonNum(){//reads the amount of seasons  from the level.txt
     user >> temp;
     seasonamount=temp;
 }
-void showup(int level,std::string user,word *word){//shows the words that the user has to guess
+int showup(int level,std::string user,word *word){//shows the words that the user has to guess
     std::ifstream userFile ("levels.txt");
     int seasonAmount,lines=0 ;
     userFile >> seasonAmount;
@@ -580,6 +573,12 @@ void showup(int level,std::string user,word *word){//shows the words that the us
         chance[i]++;
     }
     reWrite();
+        std::cout<<"would you like to play next mission?"<<std::endl;
+        std::cout<<"1.yes"<<std::endl;
+        std::cout<<"2.no"<<std::endl<<std::endl;
+        int choose =0;
+        std::cin>>choose;
+        return choose;
 }
 int showLevels(std::string user,int missionOfSeason[]){//reads the level that player wants to play
 system("CLS");
