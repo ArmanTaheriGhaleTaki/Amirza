@@ -1,6 +1,5 @@
 //including header files
 #include<iostream>
-#include<conio.h>
 #include<fstream>
 #include<string>
 #include<cstring>
@@ -68,7 +67,7 @@ void showdown(int level,std::string user,word *word);
 void challenge(word *word);
 
 int main(){
-    system("CLS");
+    system("clear");
     srand(time(0));
     userAmount();//reads the amount of users from user.txt
     seasonNum();//reads the amount of seasons from level.txt
@@ -112,7 +111,7 @@ int main(){
             break;  
             }
         sub:
-        system("CLS");
+        system("clear");
         InternalMenu();
         choose=0;
         std::cin >> choose;
@@ -121,7 +120,7 @@ int main(){
         {
         case 1:
         play:
-        system("CLS");
+        system("clear");
             choose=showup(mission[userIndex],username,&missonLine[mission[userIndex]-1]);
             if(choose==1){
                 showup(mission[userIndex],username,&missonLine[mission[userIndex]-1]);
@@ -137,23 +136,23 @@ int main(){
             goto sub;
         break;
         case 3:
-        system("CLS");
+        system("clear");
         WheelofLuck(username);
         goto sub;
             break;
         case 4:
-        system("CLS");
+        system("clear");
         editProfile(username);
         goto sub;
             break;
         case 5:
-        system("CLS");
+        system("clear");
         goto main;
             break;
         }
     }
     else{
-    system("CLS");
+    system("clear");
     goto main;
     }
         break;
@@ -233,7 +232,7 @@ bool checkPassword(std::string user , int pass){ //check if the password is corr
     return 0;
 }
 bool login(){//checks if the user name and password are correct
-    system("CLS");
+    system("clear");
     int pass,temp;
     std::cout<<"enter your username"<<std::endl;
     std::cin>> username;
@@ -284,7 +283,7 @@ bool checkReapeat(std::string user){//checks if the username is already exist
     return 0;
 }
 void makeUser(){//maiking new user 
-    system("CLS");
+    system("clear");
     int pass,temp ;
     std::string user;
     std::cout<< "please enter username"<<std::endl;
@@ -317,7 +316,7 @@ coin [tag]=0;
 extra[tag]=0;
 chance[tag]=0;
 reWrite();
-    system("CLS");
+    system("clear");
 }
 //FUNCTION file
 void reWrite(){//rewrite the user.txt file
@@ -331,7 +330,7 @@ void reWrite(){//rewrite the user.txt file
 
 //FUNCTION Rank
 void showRank(){//show the sorted user by their mission number that they passed
-    system("CLS");
+    system("clear");
     int amount =UserAmount;
     int  indexSort[amount];
     for(int i =0 ; i<amount;i++){
@@ -353,8 +352,8 @@ void showRank(){//show the sorted user by their mission number that they passed
         std::cout<<"Username:\t"<<name[indexSort[w]]<<"\t\t"<<"mission:\t"<<mission[indexSort[w]]<<std::endl;
     }
     std::cout<<std::endl;
-    getch();
-    system("CLS");
+    std::cin.get();
+    system("clear");
 }
 
 //FUNCTION InternalMenu
@@ -418,7 +417,7 @@ void WheelofLuck(std::string user){//rooling the wheelofluck
             std::cout<<user<<" won 220\n";
             break;
         }
-        getch();
+        std::cin.get();
         reWrite();
 
     }
@@ -542,7 +541,7 @@ int showup(int level,std::string user,word *word){//shows the words that the use
                     if(solved[z]==true)
                     {
                         std::cout<<"you already solved this word"<<std::endl;
-                        getch();
+                        std::cin.get();
                     }
                     else{
                     std::cout<<"you solved the word"<<std::endl;
@@ -558,7 +557,7 @@ int showup(int level,std::string user,word *word){//shows the words that the use
                             reWrite();
                         }
                     solved[z]=true;
-                    getch();
+                    std::cin.get();
                     }
                     
                 }
@@ -572,7 +571,7 @@ int showup(int level,std::string user,word *word){//shows the words that the use
                     break;
                 }
             }
-            system("CLS");
+            system("clear");
     std::cout<< "season : "<<season<<"\tlevel : "<<leveltemp<<"\tcoin : "<<coin[i]<<"\textra words: "<<extra[i]<<std::endl<<std::endl;
     std::cout<<"ussername : "<<username<<std::endl<<std::endl;
     std::cout<<"mian words : "<<word->main<<"\t\tsub words : "<<word->sub<<std::endl;
@@ -582,7 +581,7 @@ int showup(int level,std::string user,word *word){//shows the words that the use
     }
     std::cout<<std::endl<<std::endl;
     }
-            system("CLS");
+            system("clear");
             std::cout<<"congratulations you passed the mission "<<std::endl;
             mission[i]++;
             std::cout<<"here is your reward 100 coins"<<std::endl<<std::endl;
@@ -602,7 +601,7 @@ int showup(int level,std::string user,word *word){//shows the words that the use
         return choose;
 }
 int showLevels(std::string user,int missionOfSeason[]){//reads the level that player wants to play
-system("CLS");
+system("clear");
     int result=0;
         int i =0;
             for( ; i<UserAmount;i++){
@@ -627,7 +626,7 @@ system("CLS");
     }
     std::cout<<std::endl;
     std::cin>>result;
-    system("CLS");
+    system("clear");
     for(;result<1||result>mission[i];){
         std::cout<<"you have to choose a mission that you have already passed"<<std::endl;
         std::cout<<"which mission would you like to play?"<<std::endl;
@@ -648,7 +647,7 @@ system("CLS");
     }
     std::cout<<std::endl;
     std::cin>>result;
-    system("CLS");
+    system("clear");
     }
 return result;
 }
@@ -717,12 +716,12 @@ void showdown(int level,std::string user,word *word){
                     if(solved[z]==true)
                     {
                         std::cout<<"you already solved this word"<<std::endl;
-                        getch();
+                        std::cin.get();
                     }
                     else{
                     std::cout<<"you solved the word"<<std::endl;
                     solved[z]=true;
-                    getch();
+                    std::cin.get();
                     }
                     
                 }
@@ -736,7 +735,7 @@ void showdown(int level,std::string user,word *word){
                     break;
                 }
             }
-            system("CLS");
+            system("clear");
     std::cout<< "season : "<<season<<"\tlevel : "<<leveltemp<<"\tcoin : "<<coin[i]<<"\textra words: "<<extra[i]<<std::endl<<std::endl;
     std::cout<<"ussername : "<<username<<std::endl<<std::endl;
     std::cout<<"mian words : "<<word->main<<"\t\tsub words : "<<word->sub<<std::endl;
@@ -748,7 +747,7 @@ void showdown(int level,std::string user,word *word){
     }
 }
 void challenge(word *word){
-    system("cls");
+    system("clear");
     std::string user1;
     std::string user2;
     int temp=0;
@@ -756,7 +755,7 @@ void challenge(word *word){
     std::cin>>user1;
     std::cout<<"enter the username of the second player"<<std::endl;
     std::cin>>user2;
-    system("CLS");
+    system("clear");
     int user1score=0;
     int user2score=0;
     int usernum =-1;
@@ -804,7 +803,7 @@ void challenge(word *word){
                 if(answer.compare(word->words[z])==0){
                     if(solved[z]==true){
                         std::cout<<"this word is already solved "<<std::endl;
-                        getch();
+                        std::cin.get();
                     }
                     else{
                         if(usernum==-1){
@@ -816,7 +815,7 @@ void challenge(word *word){
                     std::cout<<user2<<" solved the word"<<std::endl;
                     }
                     solved[z]=true;
-                    getch();
+                    std::cin.get();
                     }
                     
                 }
@@ -830,7 +829,7 @@ void challenge(word *word){
                     break;
                 }
             }
-            system("CLS");
+            system("clear");
     std::cout<<user1<<" : "<<user1score<<"\t"<<user2<<" : "<<user2score<<std::endl;
     if(flag==0){
     for(int j=0;word->chars[j];j++)
@@ -843,7 +842,7 @@ void challenge(word *word){
     }
 }
 else{
-    system("CLS");
+    system("clear");
     flag=1;
     if(usernum==-1){
         std::cout<<user2<<" won the game"<<std::endl;
@@ -851,8 +850,8 @@ else{
     else{
         std::cout<<user1<<" won the game"<<std::endl;
     }
-    getch();
-    system("CLS");
+    std::cin.get();
+    system("clear");
     return;
 }
 }
@@ -865,6 +864,6 @@ else{
     else{
         std::cout<<"the game is draw"<<std::endl;
     }
-    getch();
-    system("CLS");
+    std::cin.get();
+    system("clear");
 }
